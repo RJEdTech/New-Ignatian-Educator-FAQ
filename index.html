@@ -160,6 +160,17 @@ html[data-theme="dark"] .q .tag{border-color:transparent;color:var(--red-deep)}
 @media(max-width:560px){.brand{font-size:1.18rem}.q .tag{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.05ms!important;scroll-behavior:auto}}
 .cl-x{flex:none;background:none;border:0;color:var(--amber-ink);cursor:pointer;font-size:18px;line-height:1;opacity:.7;padding:0 3px}.cl-x:hover{opacity:1}.ans .explore{font-size:.9em;margin-top:.7em;padding-top:.55em;border-top:1px dashed var(--line);color:var(--muted);line-height:1.6}.ans .explore b{color:var(--body)}.showcl{display:none;cursor:pointer}</style>
+<!-- Light/dark follows the operating system setting. Runs before <body>
+     renders, so there is no flash of the wrong theme. No in-page toggle by design. -->
+<script>
+(function(){
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function apply(){ document.documentElement.setAttribute("data-theme", mq.matches ? "dark" : "light"); }
+  apply();
+  if (mq.addEventListener) mq.addEventListener("change", apply);
+  else if (mq.addListener) mq.addListener(apply);
+})();
+</script>
 </head>
 <body>
 <div class="watermark" id="watermark" aria-hidden="true"></div>
@@ -172,10 +183,6 @@ html[data-theme="dark"] .q .tag{border-color:transparent;color:var(--red-deep)}
         <div class="tagline">Your start at Regis Jesuit, searchable</div>
       </div>
     </div>
-    <button class="icon-btn theme-toggle" id="theme" type="button" aria-label="Toggle dark mode">
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-    </button>
   </header>
 </div>
 <main class="wrap" id="top">
@@ -941,10 +948,6 @@ function render(){
 function openFromHash(){const h=decodeURIComponent(location.hash.replace(/^#q-/,''));if(!location.hash.startsWith('#q-')||!BY_ID[h])return;const e=BY_ID[h];qInput.value='';query='';clr.classList.remove('show');activeCat=e.cat;render();const card=document.getElementById('q-'+e.id);if(card){if(!card.classList.contains('open'))card.querySelector('.q').click();requestAnimationFrame(()=>{const y=card.getBoundingClientRect().top+scrollY-70;scrollTo({top:y,behavior:'smooth'});card.classList.add('flash');setTimeout(()=>card.classList.remove('flash'),2200);});}}
 addEventListener('hashchange',openFromHash);
 /* ---------- theme, notice, top, keys ---------- */
-const themeBtn=document.getElementById('theme');
-function setTheme(d){document.documentElement.setAttribute('data-theme',d?'dark':'light');try{localStorage.setItem('nie-theme',d?'dark':'light')}catch(e){}}
-(function(){let p=null;try{p=localStorage.getItem('nie-theme')}catch(e){}setTheme(p?p==='dark':true);})();
-themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')!=='dark'));
 
 
 const totop=document.getElementById('totop');addEventListener('scroll',()=>totop.classList.toggle('show',scrollY>500),{passive:true});totop.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
