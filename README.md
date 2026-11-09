@@ -54,3 +54,7 @@ This is a **living, unofficial guide** maintained by RJ Ed Tech to help new empl
 
 RJ Ed Tech — Jason Beyer, Director of Educational Technology, Regis Jesuit High School.
 Suggestions and corrections: jbeyer@regisjesuit.com
+
+## License
+
+© 2026 Jason Beyer, RJ Ed Tech. Licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt for non-commercial use with credit. See [LICENSE](LICENSE) for what the license does not cover.
